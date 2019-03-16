@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>The Psychic Game | Guess The Letter</title>
+</head>
+
+<body>
+
+	<h1>The Psychic Game</h1>
+
+	<p>Guess what letter I'm thinking of</p><!-- IDs for what will be on the screen -->
+	<p id='wins'></p>
+	<p id='losses'></p>
+	<p id='guessleft'></p>
+	<p id='letterguesses'></p>
+
+	<script>
+
+	      // Variables 
+	      var numberWins = 0;
+	      var numberLosses = 0;
+
+	      var guessLeft = 9; // Start at 9 and work backward
+	      var guesses = [];  // Array for all guesses
+
+	      var myGuess = Math.floor(Math.random() * 26) + 65; // Found online.
+	      myGuess = String.fromCharCode(myGuess);
+
+	      var winDiv = document.getElementById ('wins');
+	      var loseDiv = document.getElementById ('losses');
+	      var guessDiv = document.getElementById ('guessleft');
+	      var letterDiv = document.getElementById ('letterguesses');
+
+
+	      // Function to update document
+	      function updateResult() {
+	          winDiv.innerHTML = "Wins: " + numberWins;
+	          loseDiv.innerHTML = "Losses: " + numberLosses;
+	          guessDiv.innerHTML = "Guesses Left: " + guessLeft;
+	          letterDiv.innerHTML = "Your Guesses so far: " + guesses;
+	      }
+
+	      // Function to check guesses
+	      function checkGuess(letter) {
+	          if (letter.toUpperCase() == myGuess) {
+	              numberWins ++;
+	              resetGame();
+	          }
+
+	           else {
+	              var found = false;
+	              
+	               for (var i = 0; i < guesses.length; i ++) 
+	                   if (guesses[i] == letter) {
+	                      found = true;
+	                      break;
+	               }
+
+	               if (guesses.length == 0 || !found) {
+	                  guesses.push(letter);
+	                  guessLeft --;
+	                  }
+	          
+	                  if (guessLeft == 0) {
+	                  numberLosses ++;
+	                  resetGame();
+	                 }
+	           }
+	      
+	           updateResult();
+	      }
+
+	      // Reset Game when Win or Loss
+	      function resetGame() {
+	          myGuess = Math.floor(Math.random() * 26) + 65;
+	          myGuess = String.fromCharCode(myGuess);
+	          guessLeft = 9;
+	          guesses = [];
+	      }
+
+	      updateResult();
+
+
+	      // User keyboard selection, from a to z letters only
+	      document.onkeydown = function(e) {
+	          if (e.keyCode >= 65 && e.keyCode <= 90)  // Checks no other key pressed except a to z letters
+	              checkGuess(e.key);
+	      }
+
+	</script>
+
+</body>
+
+</html>
