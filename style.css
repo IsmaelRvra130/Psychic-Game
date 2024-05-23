@@ -1,5 +1,7 @@
 body{
-    background-color: grey;
+    background-image: url("https://th.bing.com/th/id/OIP.AhBQKRHqRHu1961gLDbNZgHaEo?w=212&h=180&c=7&r=0&o=5&pid=1.7g");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #wrapper{
